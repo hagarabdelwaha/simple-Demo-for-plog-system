@@ -1,0 +1,46 @@
+<?php
+
+session_start();
+require_once('userclass.php');
+
+
+
+?>
+<!DOCTYPE html>
+<html>
+    <title></title>
+</head>
+<body>
+
+<?php
+
+//$_POST['username'])&&
+if(!empty($_POST['username'])&&!empty($_POST['email'])&&!empty($_POST['id'])&&$_POST['password'])
+{
+  $usr=new User();
+  $usr->id=$_POST['id'];
+  $usr->name=trim($_POST['username']);
+  $usr->password=sha1($_POST['password']);
+  $usr->email=trim($_POST['email']);
+  $log=$usr->Edit_user();
+
+ $msg="User Updated successfully";
+ print_r($usr);
+header("location:users_data.php?msg=$msg");
+
+}
+else{
+$username=$_POST['username'];
+$mail=$_POST['email'];
+$id=$_POST['id'];
+ // $error_msg.=$fn."</br>".$ln."</br>".$add."</br>".$con."</br>".$gen."</br>".$sk."</br>".$capr."</br>".$capn."</br>".$imgerror."</br>".$mailerror."</br>";
+$error_msg="data is required";
+  header("location:edit_users_data.php?errors=$error_msg&uname=$username&mail=$mail");
+    exit;
+
+}
+
+?>
+
+</body>
+</html>
